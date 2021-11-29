@@ -1,0 +1,19 @@
+{
+    "envId": "hello-cloudbase-7g05ogcte05e734c",
+    "version": "2.0",
+    "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+    "functionRoot": "./functions",
+    "functions": [],
+    "framework": {
+        "name": "Runy2021",
+        "plugins": {
+            "vuepress": {
+                "use": "@cloudbase/framework-plugin-website",
+                "inputs": {
+                    "buildCommand": "npm run build",
+                    "outputPath": ".vuepress/dist"
+                }
+            }
+        }
+    }
+}
