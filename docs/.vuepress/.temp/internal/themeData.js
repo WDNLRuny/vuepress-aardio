@@ -1,16 +1,19 @@
 export const themeData = {
   "logo": "./favicon.ico",
-  "navbar": [
-    {
-      "text": "GitHub",
-      "link": "https://github.com/WDNLRuny/aardio-docs",
-      "target": "_blank"
-    }
-  ],
+  "navbar": [],
+  "repo": "WDNLRuny/aardio-docs",
+  "lastUpdatedText": "上次更新",
+  "editLinkText": "编辑此页",
+  "contributorsText": "贡献者",
   "sidebar": [
     {
-      "text": "简介",
-      "link": "/"
+      "text": "基础",
+      "children": [
+        {
+          "text": "介绍",
+          "link": "/"
+        }
+      ]
     }
   ],
   "locales": {
@@ -19,16 +22,12 @@ export const themeData = {
     }
   },
   "darkMode": true,
-  "repo": null,
   "selectLanguageText": "Languages",
   "selectLanguageAriaLabel": "Select language",
   "sidebarDepth": 2,
   "editLink": true,
-  "editLinkText": "Edit this page",
   "lastUpdated": true,
-  "lastUpdatedText": "Last Updated",
   "contributors": true,
-  "contributorsText": "Contributors",
   "notFound": [
     "There's nothing here.",
     "How did we get here?",

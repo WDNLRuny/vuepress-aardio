@@ -1,7 +1,7 @@
 module.exports = {
-	lang: 'zh-CN',
 	title: 'aardio',
 	description: 'aardio 文档',
+	lang: 'zh-CN',
 	base: '/aardio-docs/',
 	head: [
 		// 设置 favor.ico，.vuepress/public 下
@@ -15,14 +15,17 @@ module.exports = {
 	//主题配置
 	themeConfig: {
 		logo: './favicon.ico',
-		navbar: [{
-			text: 'GitHub',
-			link: 'https://github.com/WDNLRuny/aardio-docs',
-			target: '_blank'
-		}, ],
+		navbar: [],
+		repo: 'WDNLRuny/aardio-docs',
+		lastUpdatedText:"上次更新",
+		editLinkText:"编辑此页",
+		contributorsText:"贡献者",
 		sidebar: [{
-			text: '简介',
-			link: '/',
-		}, ]
+			text: '基础',
+			children: [{
+				text: '介绍',
+				link: '/',
+			}]
+		}],
 	},
 }
