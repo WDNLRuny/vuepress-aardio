@@ -1,0 +1,293 @@
+<template><h1 id="基本语法" tabindex="-1"><a class="header-anchor" href="#基本语法" aria-hidden="true">#</a> 基本语法</h1>
+<h2 id="数据类型" tabindex="-1"><a class="header-anchor" href="#数据类型" aria-hidden="true">#</a> 数据类型</h2>
+<table>
+	<tr>
+	    <th>数据类型</th>
+	    <th style="width:100px;">存储值</th>
+	    <th>说明</th>  
+	</tr >
+	<tr >
+	    <td>type.null</td>
+	    <td>null</td>
+	    <td>空值，所有变量默认初始值为null，将一个变量赋值为null等于删除这个变量</td>
+	</tr>
+	<tr >
+	    <td>type.boolean</td>
+	    <td>true、false</td>
+	    <td>布尔值，表示条件真、假，注意在静态类型中布尔值为32位长度， flase 存为0，而 true 存为非零值，在条件表达式(恒等式除外)中， null、数值0这认为是false，其他有效的数据都被认为是true。</td>
+	</tr>
+	<tr >
+	    <td>type.number</td>
+	    <td>数值</td>
+	    <td>数值默认存储为 64位浮点数（即静态类型中的 double 类型），在 API 函数中如果未加类型声明默认转为 32 位 int 类型，aardio 提供 math.size64() 函数用于 创建 64 位无符号整数（类据类型为 cdata，兼容 API 静态类型中的 LONG 类型）。</td>
+	</tr>
+	<tr >
+	    <td>type.string</td>
+	    <td>字符串</td>
+	    <td>字符串，字符串指向的内存是只读的字节数组，可用下标读取每个字节的 8 位无符号数值（但不可写入）， 任何对字符串的修改都会返回新的字符串（而非修改原来的内存）。在调用静态 API 函数时可作为只读的字符串指针参数使用。 aardio 字符串尾部总会保护性地放置2个隐藏的字节'\0\0'（不计入字符串长度，不包含在字符串中）， 因此 aardio 字符串可兼容 C 风格字符串。</td>
+	</tr>
+	<tr >
+	    <td>type.buffer</td>
+	    <td>原生字节数组</td>
+	    <td>
+原生字节数组( buffer ) 是使用 raw.buffer() 函数分配的可读写、固定长度的内存，可存取各种二进制数据。可用 [] 下标操作符读写内存中原生字节的 8 位无符号数值，可以用 # 操作符取字节数组长度。 不支持连接操作符，但支持 raw.concat,string.concat,string.join 等函数以不同方式拼接。
+<p>buffer 在几乎所有字符串函数中都可以作为字符串使用。在结构体中也可作为指针、 BYTE[]数组的值。在原生 API 参数中可作为内存指针、字符串、输出字符串使用。在 COM 函数中可作为安全数组使用。</p>
+<div class="custom-container tip"><p class="custom-container-title">提示</p>
+<p>如果在一个结构体中，将 buffer 赋值为一个结构体的指针字段，并将这个结构体作为输出参数调用 API， 在 API 函数返回以后，只要指针地址没有改变 —— 则这个字段的值仍然是指向原来的 buffer 对象（ 如果指针地址被修改，则会变为新的指针值 ）。</p>
+</div>
+<p>buffer 在 json 中会转换为 {type=&quot;Buffer&quot;;data={} } 格式的表对象,
+这种表对象可作为 raw.buffer() 函数的唯一参数还原为 buffer 对象</p>
+<p>buffer 尾部总会保护性地放置2个隐藏的字节'\0\0'（不计入字符串长度，不包含在字符串中）。 与动态指针不同的是，即使你不指定初始值，aardio 仍然会初始化 buffer 中所有字节的值为0，buffer 的长度是不可变的。 请参考: raw.buffer 函数</p>
+</td>
+	</tr>
+	<tr>
+	    <td rowspan="2">type.pointer</td>
+	    <td>指针</td>
+	    <td>内存指针一般用于存储内存地址.但有时候也可能用于存储句柄地址或者无效的内存地址，内存指针给你最大的自由，同时也带来最大的风险，应谨慎使用。</td>
+	</tr>
+	<tr>
+	    <td>动态指针</td>
+	    <td>动态指针并不是一个新的类型 - 而是与普通内存指针拥有相同的数据类型， raw.realloc()函数可用于分配、释放一个动态指针，也可以使用 raw.realloc() 重新调整动态指针分配的内存大小，动态指针的地址是可变的，调整大小后应废弃旧的指针地址并更新为 raw.realloc() 返回的新指针。
+<p>动态指针会在返回给用户的指针地址前面倒退8个字节记录2个32位字段的内存长度、数据长度信息，然后总是向后移动8个字节将可用的指针地址返回给用户， 动态指针尾部总会保护性地放置2个隐藏的字节'\0\0'（不计入内存长度，不包含在存储数据中）。</p>
+<p>动态指针可以作为普通内存指针使用，也可以用于支持动态指针的 raw.realloc() raw.concat() raw.sizeof() 等函数， 用 raw.sizeof() 获取动态指针指向内存的大小，用 raw.concat() 函数可以对动态指针的内存追加拼接数据。 要记住这些操作动态指针的函数不要误传不是由 raw.realloc() 分配的非动态指针进去，aardio 不会检查或阻止这种错误操作。</p>
+<p>与 buffer 不同的是，如果不指定初始化值，raw.realloc 就不会对分配的内存设定初始化值， 并且 aardio 不负责自动释放动态指针分配的内存，显式的调用 raw.realloc(0，动态指针) 才能释放一个动态指针。</p>
+</td>
+	</tr>
+	<tr>
+	    <td>type.table</td>
+	    <td>数组、哈希表、静态结构体</td>
+	    <td>请参考《表》</td>
+	</tr>
+	<tr>
+	    <td>type.function</td>
+	    <td>函数</td>
+	    <td>请参考：定义函数</td>
+	</tr>
+	<tr>
+	    <td>type.cdata</td>
+	    <td>内核对象</td>
+	    <td>aardio 内核对象，例如 math.size64() 函数创建的长整数对象。</td>
+	</tr>
+	<tr>
+	    <td>type.fiber</td>
+	    <td>纤程</td>
+	    <td>fiber.create()创建并返回的纤程对象。 纤程类似线程，但不是线程.
+纤程有独立的运行堆栈，并且也可以暂停或继续运行，但是纤程并不会创建新的线程，也不能同时运行多个纤程.
+<p>请参考《库函数文档》：内核库-&gt;纤程库</p>
+</td>
+	</tr>
+	<tr>
+	    <td>type.class</td>
+	    <td>类</td>
+	    <td>请参考：class</td>
+	</tr>
+</table>
+<h2 id="标识符" tabindex="-1"><a class="header-anchor" href="#标识符" aria-hidden="true">#</a> 标识符</h2>
+<p>标识符是指编程语言中由起标识作用的英文字母、数字或中文字符、以及下划线组成的命名符号，
+一般用来标识用户或系统定义的数据或方法，例如常量名、变量名、函数名等。</p>
+<p>标识符基本规则：</p>
+<ul>
+<li>标识符由英文字母、中文字符、数字、下划线“_”三种字符组成。</li>
+<li>数字不允许作为首字符。</li>
+<li>标识符包含中文时，中文字符前面不能有字母或数字。</li>
+<li>可以使用美元符号($)作为标识符的第一个字符。</li>
+<li>可以使用下划线作为标识符的首字符,当下划线作为首字符时表示常量,单个下划线表示变量。</li>
+<li>标识符区分大小写。</li>
+</ul>
+<h2 id="关键字" tabindex="-1"><a class="header-anchor" href="#关键字" aria-hidden="true">#</a> 关键字</h2>
+<p>语法系统保留的关键字，关键字在编辑器默认显示为蓝色。aardio全部关键字如下:</p>
+<table>
+	<tr>
+	    <th>关键字</th>
+	    <th width="100%">说明</th>
+	</tr>
+	<tr v-for="item in keywords" :key="item">
+	    <td>{{item.key}}</td>
+	    <td>{{item.explain}}</td>
+	</tr>
+</table>
+<p>aardio支持自定义关键字，例如：</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>def 如果 <span class="token operator">=</span> <span class="token keyword">if</span>
+def 否则 <span class="token operator">=</span> <span class="token keyword">else</span>
+def 否则是 <span class="token operator">=</span> elseif
+def 名字空间 <span class="token operator">=</span> namespace
+def 循环 <span class="token operator">=</span> <span class="token keyword">while</span>
+
+io<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+如果 <span class="token number">1</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+    io<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">" 1等于1 "</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span> 否则 <span class="token punctuation">{</span>
+    io<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">" 1不等于1 "</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><p>如果在库中定义关键字、需要在preload库中加载定义关键字的库，才能保证在编译前生效。</p>
+<p>当关键字置于成员符之后,aardio会将关键字作为普通成员变量名</p>
+<h2 id="分隔符" tabindex="-1"><a class="header-anchor" href="#分隔符" aria-hidden="true">#</a> 分隔符</h2>
+<p>aardio使用半角空格、制表符、回车换行、分号等作为分隔符，不允许使用全角空格('\u3000')或HTML空格('\u00A0')作为语法分隔符。在HTML模板语法中，还可以使用&lt;? ?&gt; 作为代码分隔符。</p>
+<h2 id="注释" tabindex="-1"><a class="header-anchor" href="#注释" aria-hidden="true">#</a> 注释</h2>
+<p>注释是被标明不是程序代码、在运行时跳过不执行的附加说明内容。</p>
+<p>1.单行注释</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// 开始，到行尾结束;</span>
+</code></pre><div class="line-numbers"><span class="line-number">1</span><br></div></div><p>2.多行注释</p>
+<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">/* 开始
+首尾的*字符可以有一或多个，但*字符的数目必须首尾匹配。
+结束 */</span>
+</code></pre><div class="line-numbers"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="操作数-operand" tabindex="-1"><a class="header-anchor" href="#操作数-operand" aria-hidden="true">#</a> 操作数(operand)</h2>
+<p>操作数是指代码中表示数据的最小数据单元：变量、常量</p>
+<h2 id="操作符-operator" tabindex="-1"><a class="header-anchor" href="#操作符-operator" aria-hidden="true">#</a> 操作符(operator)</h2>
+<p>操作符指代码中的所有标点符号(不允许使用全角标点、在aardio编辑器中全角标点、全角空格将以红色纠错背景显示)。 用于表达式中对操作数计算求值的操作符本手册称为运算符。
+关于运算符请参考下面的链接：</p>
+<p>算术运算符</p>
+<p>按位运算符</p>
+<p>等式运算符</p>
+<p>逻辑运算符</p>
+<p>关系运算符</p>
+<p>连接运算符</p>
+<p>取长运算符</p>
+<p>优先级</p>
+<p>运算符重载</p>
+<p>其他操作符将在其他语法章节介绍，例如你可以在数据类型中了解到构造操作符“{}”，成员操作符“.”，索引操作符“[]”</p>
+<h2 id="表达式-expression" tabindex="-1"><a class="header-anchor" href="#表达式-expression" aria-hidden="true">#</a> 表达式(expression)</h2>
+<p>表达式用来表示右值数据，右值都是表达式，左值都是具名对象。</p>
+<ul>
+<li>右值是指存储在内存，并使用表达式表示的只读数据值(read value)，通常用于赋值语句的等号右侧、或作为函数的输入参数、函数的返回值使用，它与左值相对，不能对右值执行赋值操作(即不能置于等号左侧)。</li>
+<li>单个操作数可以构成一个表达式。</li>
+<li>操作数、运算符可以组成表达式，使用运算符对操作数进行运算并返回一个新的值。</li>
+<li>一个表达式可以作为另一个表达式的操作数。</li>
+<li>函作返回值可以作为表达式。</li>
+<li>赋值语句不能作为表达式。</li>
+</ul>
+<h2 id="语句-statement" tabindex="-1"><a class="header-anchor" href="#语句-statement" aria-hidden="true">#</a> 语句(statement)</h2>
+<p>我们编写的程序由语句组成，
+程序中的最小指令单元称为语句。</p>
+<p>基本语句由关键字、操作数、操作符、表达式等组成。
+包含多个语句、或语句块的语句称为复合语句。</p>
+<p>一个基本语句是由尾部的分号表示结束的逻辑行，
+如果能保持语句在语义上的独立完整性，分号“;”通常可以省略。</p>
+<p>语句块由一对大括号界定（ 也可以使用 begin end 替代 ）
+语句块可以包含多个基本语句或者复合语句。</p>
+<p>1、基本语句:
+赋值语句
+函数调用语句
+import语句
+2、语句块
+语句块</p>
+<p>3、控制语句
+条件判断语句
+循环语句
+容错语句
+4、定义语句
+定义名字空间
+定义函数
+定义类</p>
+<h2 id="语句与表达式的概念区别" tabindex="-1"><a class="header-anchor" href="#语句与表达式的概念区别" aria-hidden="true">#</a> 语句与表达式的概念区别</h2>
+<p>aardio语言严格区分表达式、语句的概念，单独的表达式不能作为语句。</p>
+<div class="language-javascript ext-js"><pre v-pre class="language-javascript"><code><span class="token number">1</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">//错误：单独的表达式不能作为语句</span>
+<span class="token keyword">var</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">:</span> <span class="token comment">//正确，表达式组成语句</span>
+io<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span> num <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//函数调用构成独立语句</span>
+io<span class="token punctuation">.</span>print<span class="token punctuation">;</span> <span class="token comment">//错误：函数对象不能作为语句 </span>
+<span class="token keyword">var</span> func <span class="token operator">=</span> io<span class="token punctuation">.</span>print<span class="token operator">:</span> <span class="token comment">//正确，函数对象可以作为操作数构成表达式</span>
+<span class="token keyword">var</span> tfunc <span class="token operator">=</span> <span class="token function">type</span><span class="token punctuation">(</span> func <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//函数返回值是一个表达式</span>
+num<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">//正确，自增赋值语句</span>
+num <span class="token operator">=</span> num<span class="token operator">++</span><span class="token punctuation">;</span><span class="token comment">//错误：赋值语句不能作为表达式</span>
+</code></pre><div class="highlight-lines"><div class="highlight-line">&nbsp;</div><br><br><div class="highlight-line">&nbsp;</div><br><br><br><div class="highlight-line">&nbsp;</div></div></div><p>{{title}}</p>
+</template>
+
+<script>
+
+export default {
+  setup() {
+    return {
+		keywords:[{
+		key: "var",
+		explain: "用于定义局部变量"
+	},
+	{
+		key: "def",
+		explain: "用于定义关键字"
+	},
+	{
+		key: "null",
+		explain: "用于表示空值"
+	},
+	{
+		key: "and not or",
+		explain: "逻辑运算符"
+	},
+	{
+		key: "begin end",
+		explain: "用于包含语句块"
+	},
+	{
+		key: "false true",
+		explain: "用于表示布尔值"
+	},
+	{
+		key: "if else elseif",
+		explain: "用于条件判断语句"
+	},
+	{
+		key: "select case",
+		explain: "用于条件判断语句"
+	},
+	{
+		key: "for in",
+		explain: "用于循环语句"
+	},
+	{
+		key: "while do",
+		explain: "用于循环语句"
+	},
+	{
+		key: "break continue",
+		explain: "循环中断语句"
+	},
+	{
+		key: "try catch",
+		explain: "用于捕获异常"
+	},
+	{
+		key: "class ctor",
+		explain: "用于创建类"
+	},
+	{
+		key: "function",
+		explain: "用于创建函数"
+	},
+	{
+		key: "return",
+		explain: "用于函数中返回值"
+	},
+	{
+		key: "namespace",
+		explain: "用于创建或打开名字空间"
+	},
+	{
+		key: "import",
+		explain: "用于引用库"
+	},
+	{
+		key: "with",
+		explain: "用于打开名字空间"
+	},
+	{
+		key: "this",
+		explain: "用于在类内部表示当前实例对象"
+	},
+	{
+		key: "owner",
+		explain: "用于成员函数中表示调用函数的主体对象"
+	},
+	{
+		key: "global",
+		explain: "用于表示全局名字空间"
+	},
+	{
+		key: "self",
+		explain: "用于表示当前名字空间"
+	}
+]
+    }
+  }
+}
+</script>

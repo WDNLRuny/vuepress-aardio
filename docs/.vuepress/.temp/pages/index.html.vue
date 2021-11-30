@@ -17,5 +17,4 @@
 <p>aardio 不仅仅可以开发桌面软件，也可以用于开发网站，aardio 可以直接支持与 PHP 类似的 HTML 模板语法，提供语言级别的模板解析，一个 aardio 源码文件，可以放 aardio 源码，也可以直接放 HTML，或者放 HTML，aardio 混合的模板代码，aardio 都能完美支持。并且 aardio可以使用几句代码就可以创建一个微型嵌入式 HTTP 服务端（可以集成 WebSocket 服务端），因此 aardio 可以非常方便地为浏览器控件提供 HTTP 服务端，并且像写网站那样写桌面客户端软件。</p>
 <p>区别于其他动态语言，aardio 可以非常方便地支持真多线程，并且提供大量多线程函数库、演示范例等等。</p>
 <p>aardio 处理 Unicode 编码非常方便且简洁高效，例如在 aardio 调用基于 UTF-16编码 的 Unicode WinAPI，或者调用其他基于 UTF-8 编码的接口，我们不需要多写一句代码处理复杂的编码问题。在 aardio 中字符串拥有独特的 UTF 自动标记特性，可以实现自动识别多种不同编码，虽然 aardio 默认编码为UTF-8，但字符串中可以存储二进制数据、UTF-8编码文本、UTF-16编码文本等等，所以 aardio 不但可以完美支持 Unicode，也可以方便地处理二进制数据、或者其他编码的文本。类似这样的创造性设计在 aardio 中随处可见，多次有用户反馈，学习 aardio 让自己的编程思路变得更开阔，使用其他编程语言也因此深受启发。</p>
-<p><a href="https://ide.update.aardio.com/releases/aardio.7z" target="_blank" rel="noopener noreferrer">下载最新版本<OutboundLink/></a></p>
 </template>
