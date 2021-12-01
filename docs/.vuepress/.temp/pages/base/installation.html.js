@@ -15,20 +15,13 @@ export const data = {
   ],
   "filePathRelative": "base/installation.md",
   "git": {
-    "updatedTime": null,
-    "contributors": []
+    "updatedTime": 1638269003000,
+    "contributors": [
+      {
+        "name": "Runy",
+        "email": "73097948+WDNLRuny@users.noreply.github.com",
+        "commits": 1
+      }
+    ]
   }
-}
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
 }
