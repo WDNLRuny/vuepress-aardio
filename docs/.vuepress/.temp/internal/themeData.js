@@ -26,7 +26,8 @@ export const themeData = {
         "/base/installation",
         "/base/example",
         "/base/grammar",
-        "/base/variable"
+        "/base/variable",
+        "/base/dataType"
       ]
     }
   ],
@@ -49,17 +50,4 @@ export const themeData = {
     "Looks like we've got some broken links."
   ],
   "backToHome": "Take me home"
-}
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updateThemeData) {
-    __VUE_HMR_RUNTIME__.updateThemeData(themeData)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ themeData }) => {
-    __VUE_HMR_RUNTIME__.updateThemeData(themeData)
-  })
 }

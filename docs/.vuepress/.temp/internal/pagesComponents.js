@@ -3,6 +3,8 @@ import { defineAsyncComponent } from 'vue'
 export const pagesComponents = {
   // path: /
   "v-8daa1a0e": defineAsyncComponent(() => import(/* webpackChunkName: "v-8daa1a0e" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/index.html.vue")),
+  // path: /base/dataType.html
+  "v-5e732550": defineAsyncComponent(() => import(/* webpackChunkName: "v-5e732550" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/dataType.html.vue")),
   // path: /base/example.html
   "v-2f204654": defineAsyncComponent(() => import(/* webpackChunkName: "v-2f204654" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/example.html.vue")),
   // path: /base/grammar.html

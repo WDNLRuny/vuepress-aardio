@@ -2,6 +2,7 @@ import { Vuepress } from '@vuepress/client/lib/components/Vuepress'
 
 const routeItems = [
   ["v-8daa1a0e","/","介绍",["/index.html","/README.md"]],
+  ["v-5e732550","/base/dataType.html","数据类型",["/base/dataType","/base/dataType.md"]],
   ["v-2f204654","/base/example.html","基础应用",["/base/example","/base/example.md"]],
   ["v-59ce4e37","/base/grammar.html","基本语法",["/base/grammar","/base/grammar.md"]],
   ["v-2edbdd4c","/base/installation.html","安装",["/base/installation","/base/installation.md"]],

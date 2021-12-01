@@ -256,103 +256,13 @@ num = num++;//错误：赋值语句不能作为表达式
 
 
 
-{{title}}
-
-
 <script>
+import {keywords,keyFunction} from '/docs/deploy'
 
 export default {
   setup() {
     return {
-		keywords:[{
-		key: "var",
-		explain: "用于定义局部变量"
-	},
-	{
-		key: "def",
-		explain: "用于定义关键字"
-	},
-	{
-		key: "null",
-		explain: "用于表示空值"
-	},
-	{
-		key: "and not or",
-		explain: "逻辑运算符"
-	},
-	{
-		key: "begin end",
-		explain: "用于包含语句块"
-	},
-	{
-		key: "false true",
-		explain: "用于表示布尔值"
-	},
-	{
-		key: "if else elseif",
-		explain: "用于条件判断语句"
-	},
-	{
-		key: "select case",
-		explain: "用于条件判断语句"
-	},
-	{
-		key: "for in",
-		explain: "用于循环语句"
-	},
-	{
-		key: "while do",
-		explain: "用于循环语句"
-	},
-	{
-		key: "break continue",
-		explain: "循环中断语句"
-	},
-	{
-		key: "try catch",
-		explain: "用于捕获异常"
-	},
-	{
-		key: "class ctor",
-		explain: "用于创建类"
-	},
-	{
-		key: "function",
-		explain: "用于创建函数"
-	},
-	{
-		key: "return",
-		explain: "用于函数中返回值"
-	},
-	{
-		key: "namespace",
-		explain: "用于创建或打开名字空间"
-	},
-	{
-		key: "import",
-		explain: "用于引用库"
-	},
-	{
-		key: "with",
-		explain: "用于打开名字空间"
-	},
-	{
-		key: "this",
-		explain: "用于在类内部表示当前实例对象"
-	},
-	{
-		key: "owner",
-		explain: "用于成员函数中表示调用函数的主体对象"
-	},
-	{
-		key: "global",
-		explain: "用于表示全局名字空间"
-	},
-	{
-		key: "self",
-		explain: "用于表示当前名字空间"
-	}
-]
+		keywords:[...keywords,...keyFunction]
     }
   }
 }
