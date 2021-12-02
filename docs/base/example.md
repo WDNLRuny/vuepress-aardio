@@ -4,7 +4,7 @@
 
 新建一个控制台项目，在 main.aardio 输入以下代码，点击 运行(F5) 程序
 
-```js
+```js :no-line-numbers
 //引入 console 库
 import console;
 //打印 Hello World

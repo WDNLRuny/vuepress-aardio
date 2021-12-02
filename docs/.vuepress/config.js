@@ -6,17 +6,17 @@ module.exports = {
 	lang: 'zh-CN',
 	base: '/aardio-docs/',
 	head: [
-		// 设置 favor.ico，.vuepress/public 下
+		// 设置 favor.ico
 		[
 			'link', {
 				rel: 'icon',
-				href: './favicon.ico'
+				href: '/aardio-docs/favicon.ico'
 			}
 		]
 	],
 	//主题配置
 	themeConfig: {
-		logo: './favicon.ico',
+		logo: '/favicon.ico',
 		navbar: [{
 			text: '官网',
 			link: 'https://www.aardio.com/',
@@ -42,6 +42,7 @@ module.exports = {
 				'/base/grammar',
 				'/base/variable',
 				'/base/dataType',
+				'/base/operator',
 			]
 		}],
 	},

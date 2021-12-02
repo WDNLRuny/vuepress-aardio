@@ -127,12 +127,12 @@ io<span class="token punctuation">.</span><span class="token function">open</spa
 <h2 id="注释" tabindex="-1"><a class="header-anchor" href="#注释" aria-hidden="true">#</a> 注释</h2>
 <p>注释是被标明不是程序代码、在运行时跳过不执行的附加说明内容。</p>
 <p>1.单行注释</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// 开始，到行尾结束;</span>
-</code></pre><div class="line-numbers"><span class="line-number">1</span><br></div></div><p>2.多行注释</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">/* 开始
+<div class="language-javascript ext-js"><pre v-pre class="language-javascript"><code><span class="token comment">// 开始，到行尾结束;</span>
+</code></pre></div><p>2.多行注释</p>
+<div class="language-javascript ext-js"><pre v-pre class="language-javascript"><code><span class="token comment">/* 开始
 首尾的*字符可以有一或多个，但*字符的数目必须首尾匹配。
 结束 */</span>
-</code></pre><div class="line-numbers"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="操作数-operand" tabindex="-1"><a class="header-anchor" href="#操作数-operand" aria-hidden="true">#</a> 操作数(operand)</h2>
+</code></pre></div><h2 id="操作数-operand" tabindex="-1"><a class="header-anchor" href="#操作数-operand" aria-hidden="true">#</a> 操作数(operand)</h2>
 <p>操作数是指代码中表示数据的最小数据单元：变量、常量</p>
 <h2 id="操作符-operator" tabindex="-1"><a class="header-anchor" href="#操作符-operator" aria-hidden="true">#</a> 操作符(operator)</h2>
 <p>操作符指代码中的所有标点符号(不允许使用全角标点、在aardio编辑器中全角标点、全角空格将以红色纠错背景显示)。 用于表达式中对操作数计算求值的操作符本手册称为运算符。

@@ -11,6 +11,8 @@ export const pagesComponents = {
   "v-59ce4e37": defineAsyncComponent(() => import(/* webpackChunkName: "v-59ce4e37" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/grammar.html.vue")),
   // path: /base/installation.html
   "v-2edbdd4c": defineAsyncComponent(() => import(/* webpackChunkName: "v-2edbdd4c" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/installation.html.vue")),
+  // path: /base/operator.html
+  "v-1b58a2a0": defineAsyncComponent(() => import(/* webpackChunkName: "v-1b58a2a0" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/operator.html.vue")),
   // path: /base/variable.html
   "v-0a5d2850": defineAsyncComponent(() => import(/* webpackChunkName: "v-0a5d2850" */"C:/Users/Administrator/Desktop/vuepress-aardio/docs/.vuepress/.temp/pages/base/variable.html.vue")),
   // path: /404.html

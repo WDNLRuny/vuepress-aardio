@@ -1,3 +1,5 @@
+// 公共使用
+
 //关键词
 export const keywords = [{
 		key: "var",
@@ -170,5 +172,174 @@ export const keyFunction = [{
 	{
 		key: "setprivilege",
 		explain: "用于指定进程权限"
+	}
+]
+
+
+//操作符,按照优先级排序
+// associativity 结核性：1.从左到右 , 2.从右到左
+// type          操作符类型：1.成员操作符, 2.算术运算符,3.连接运算符,4.等式运算符
+export const operator = [{
+		operator: [{
+				key: ".",
+				example: "var a = tab.member",
+				explain: "成员操作符"
+			},
+			{
+				key: "[]",
+				example: 'var a = tab["member"]',
+				explain: "下标操作符"
+			},
+			{
+				key: "[[]]",
+				example: "var a = tab.member",
+				explain: `直接下标操作符
+			
+			获取或设置对象成员，不会调用元方法。
+可用此操作符在元方法中避免递归调用元方法。`
+			}
+		],
+		associativity: 1, // 结核性：1.从左到右 , 2.从右到左
+		type: 1, // 操作符类型：1.成员操作符,
+		explain: "用于访问table成员的操作符。"
+	},
+	{
+		operator: ["()"],
+		associativity: 1,
+		explain: "用于组合表达式并改变优先级，或用于函数调用。"
+	},
+	{
+		operator: ["**"],
+		operator: [{
+			key: "**",
+			explain: "幂"
+		}],
+		type: 2,
+		associativity: 2,
+		explain: "乘方运算"
+	},
+	{
+		operator: ["!", "not"],
+		associativity: 1,
+		explain: "逻辑非"
+	},
+	{
+		operator: ["-"],
+		associativity: 1,
+		explain: "取负"
+	},
+	{
+		operator: ["~"],
+		associativity: 1,
+		explain: "按位取反"
+	},
+	{
+		operator: [{
+				key: "*",
+				explain: "乘"
+			},
+			{
+				key: "/",
+				explain: "除"
+			},
+			{
+				key: "%",
+				explain: "模"
+			}
+		],
+		type: 2,
+		associativity: 1,
+		explain: "算术运算符"
+	},
+	{
+		operator: [{
+				key: "+",
+				explain: "加"
+			},
+			{
+				key: "-",
+				explain: "减(二元运算符)、取负(单目运算符)"
+			},
+		],
+		type: 2,
+		associativity: 1,
+		explain: "算术运算符"
+	},
+	{
+		operator: ["<<", ">>", ">>>"],
+		associativity: 1,
+		explain: "按位运算符"
+	},
+	{
+		operator: ["&", "^", "|"],
+		associativity: 1,
+		explain: "按位运算符"
+	},
+	{
+		operator:[{
+			key: "++",
+			explain: "连接运算符"
+		}],
+		associativity: 2,
+		type:3,
+		explain: "连接运算符"
+	},
+	{
+		operator: ["<", "<=", ">=", ">"],
+		associativity: 1,
+		explain: "关系运算符"
+	},
+	{
+		operator:[
+			{
+				key: "==",
+				explain: "等式运算符"
+			},
+			{
+				key: "!=",
+				explain: "不等式运算符"
+			},
+			{
+				key: "===",
+				explain: "恒等运算符"
+			},
+			{
+				key: "!==",
+				explain: "非恒等运算符"
+			},
+		],
+		associativity: 1,
+		type:4,
+		explain: "等于、不等于、恒等于、非恒等于"
+	},
+	{
+		operator: ["&&", "and"],
+		associativity: 1,
+		explain: "逻辑与"
+	},
+	{
+		operator: ["&&", "and"],
+		associativity: 1,
+		explain: "逻辑与"
+	},
+	{
+		operator: ["||", "or"],
+		associativity: 1,
+		explain: "逻辑或"
+	},
+	{
+		operator: ["?"],
+		associativity: 1,
+		explain: "逻辑与、该运算符类似于and但优先级更低"
+	},
+	{
+		operator: [":"],
+		associativity: 1,
+		explain: "逻辑或、该运算符类似于or但优先级更低"
+	},
+	{
+		operator: ["=", "+=", "-=", "*=", "/=", "&=", "^=", "|=", "<<=", ">>="],
+		associativity: 2,
+		explain: "aardio中赋值操作符不能用于表达式并返回值,只能用于独立的赋值语句"
 	}
 ]
