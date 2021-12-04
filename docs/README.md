@@ -2,9 +2,9 @@
 
 ## aardio 是什么
 
-aardio 专注于**桌面软件开发**，{{ new Date().getFullYear() - 2004  }}年一直保持非常活跃地更新( [更新日志](https://ide.update.aardio.com/log/) )，aardio 被多年用于生产项目实践，久经测试和锤炼。
+aardio 专注于**桌面软件开发**，{{ age }}年一直保持非常活跃地更新([更新日志](http://ide.update.aardio.com/log/))，aardio 被多年用于生产项目实践，久经测试和锤炼。
 
-aardio 在诞生之初就设计了良好的架构与语法。正因如此，aardio 历经{{ new Date().getFullYear() - 2004  }}年发展，日新月异，每一年都会带来大量的更新扩展，但仍然能保持最初简洁高效的结构与语法，即使是最早的 aardio 源代码仍然能不经修改在最新版本开发环境中完美运行。
+aardio 在诞生之初就设计了良好的架构与语法。正因如此，aardio 历经{{ age }}年发展，日新月异，每一年都会带来大量的更新扩展，但仍然能保持最初简洁高效的结构与语法，即使是最早的 aardio 源代码仍然能不经修改在最新版本开发环境中完美运行。
 
 ## aardio 的优点
 
@@ -35,3 +35,15 @@ aardio 不仅仅可以开发桌面软件，也可以用于开发网站，aardio 
 区别于其他动态语言，aardio 可以非常方便地支持真多线程，并且提供大量多线程函数库、演示范例等等。
 
 aardio 处理 Unicode 编码非常方便且简洁高效，例如在 aardio 调用基于 UTF-16编码 的 Unicode WinAPI，或者调用其他基于 UTF-8 编码的接口，我们不需要多写一句代码处理复杂的编码问题。在 aardio 中字符串拥有独特的 UTF 自动标记特性，可以实现自动识别多种不同编码，虽然 aardio 默认编码为UTF-8，但字符串中可以存储二进制数据、UTF-8编码文本、UTF-16编码文本等等，所以 aardio 不但可以完美支持 Unicode，也可以方便地处理二进制数据、或者其他编码的文本。类似这样的创造性设计在 aardio 中随处可见，多次有用户反馈，学习 aardio 让自己的编程思路变得更开阔，使用其他编程语言也因此深受启发。
+
+
+<script>
+
+export default {
+  setup() {
+    return {
+		age: new Date().getFullYear() - 2004
+    }
+  }
+}
+</script>
